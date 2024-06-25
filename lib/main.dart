@@ -1,32 +1,74 @@
-import 'package:flutter/material.dart';
+import 'dart:ffi';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+@override
+State<MyApp> create() => _MyAppState();
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+class _MyAppState extends State<MyApp> {
+   MyApp({Key? key}) : super(key: key);
+  String buttonName = 'Click';
+  int currentIndex = 0;
+ 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('App Title'),
+          title: const Text('App Title'),
         ),
-        body: Text('Body'),
+        body: const Center(
+          child: Container(
+           color: Colors.red,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ElevatedButton( 
+                  style: ElevatedButton.styleFrom(
+                    onPrimary:Color.red,
+                    primary: Colors.orange
+                  ),
+                  onPressed: () {
+                setState(() {
+                   buttonName = 'Clicked';
+                });
+                }, 
+                child: Text(buttonName),
+                ),
+                ElevatedButton(onPressed: () {
+                  setState(() {
+                    buttonName = 'Clicked';
+                  });
+                },  
+                child: Text(buttonName),
+                }),
+            ),
+          ),
+          ),
         bottomNavigationBar: BottomNavigationBar(
-          items: [
+          items: const [
             BottomNavigationBarItem(
               label: 'Home',
-              icon: Icon(Icons.home)
+              icon: Icon(
+                Icons.home),
               ),
               BottomNavigationBarItem(
                 label: 'Settings'
               icon: Icon(Icons.settings)
-              ) 
+              )
               ],
+              currentIndex: 0,
+              onTap: (int index){
+              setState( {
+              currentIndex = index;
+            }); 
+              },
         ),
       ),
     );
